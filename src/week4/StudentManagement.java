@@ -19,18 +19,22 @@ public class StudentManagement {
     Scanner sc = new Scanner(System.in);
 
     ArrayList<Student> studentList = new ArrayList<>();
+// Create 
 
     public void createStudent(Student student) {
         studentList.add(student);
 
     }
+// Show Student
 
     public void showStudent() {
         for (Student student : studentList) {
             System.out.println(student.toString());
+            
         }
 
     }
+//Find Student
 
     public void findStudent() {
         Scanner scanner = new Scanner(System.in);
@@ -50,6 +54,7 @@ public class StudentManagement {
             System.out.println("Student with ID " + inputID + " not found.");
         }
     }
+// Hàm Sort 
 
     public void sortStudent() {
         System.out.println("After sort :");
@@ -61,9 +66,23 @@ public class StudentManagement {
 
         });
     }
+// Hàm delete
 
     public void deleteStudent(String id) {
+        boolean removed = false;
+        for (int i = 0; i < studentList.size(); i++) {
+            if (studentList.get(i).studentID.equalsIgnoreCase(id)) {
+                studentList.remove(i);
+                System.out.println("Student with ID " + id + " has been deleted.");
+                removed = true;
+                break;
+            }
+        }
+        if (!removed) {
+            System.out.println("Student with ID " + id + " not found.");
+        }
     }
+// Hàm update
 
     public void updateStudent() {
         System.out.println("Input ID you want to find : ");
@@ -89,8 +108,27 @@ public class StudentManagement {
         System.out.println("Student information updated successfully.");
         System.out.println("Update student" + found);
     }
+// Hàm Report
 
     public void reportStudent() {
+        System.out.println("Student Report:");
+        ArrayList<String> printed = new ArrayList<>();
+
+        for (Student s1 : studentList) {
+            int count = 0;
+            for (Student s2 : studentList) {
+                if (s1.studentName.equalsIgnoreCase(s2.studentName)
+                        && s1.courseName.equalsIgnoreCase(s2.courseName)) {
+                    count++;
+                }
+            }
+            String key = s1.studentName + "-" + s1.courseName;
+            if (!printed.contains(key)) {
+                System.out.println(s1.studentName + " | " + s1.courseName + " | " + count);
+                printed.add(key);
+            }
+        }
+
     }
 
 }
